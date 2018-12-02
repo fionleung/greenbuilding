@@ -1,0 +1,63 @@
+
+<html>
+<head>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+<script type="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.min.js"></script>
+<style>
+#myChart {
+  cursor: crosshair;
+}
+</style>
+</head>
+<body>
+<canvas id="myChart" width="400" height="400"></canvas>
+
+  <script>
+  const canvas = document.getElementById('myChart');
+  const ctx = canvas.getContext("2d");
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [
+        '2017-01-01 08:12:12:12',
+        '2017-02-01',
+        '2017-03-01',
+        '2017-04-01'
+      ],
+      datasets: [{
+        label: 'Attendance',
+        data: [12, 19, 3, 5]
+      }]
+    },
+    options: {
+      maintainAspectRatio: true,
+      tooltips: {
+        mode: 'index',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            unit: 'month'
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  })
+  
+
+
+
+  </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+
+<html>
+<head>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.min.js"></script>
+
+</head>
+<body>
+<canvas id="myChart" width="400" height="400"></canvas>
+
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+var ctx = document.getElementById("myChart").getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [
+        '2017-01-01 08:12:12:12',
+        '2017-02-01',
+        '2017-03-01',
+        '2017-04-01'
+      ],
+      datasets: [{
+        label: 'Attendance',
+        data: [12, 19, 3, 5]
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      tooltips: {
+        mode: 'index',
+        intersect: false
+      },
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            unit: 'month'
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  })
+
+  canvas.onpointerdown = function (evt) {
+    clearAnnotations()
+    const points = chart.getElementsAtEventForMode(evt, 'index', { intersect: false })
+    const label = chart.data.labels[points[0]._index]
+    addAnnotation(label)
+  }
+
+  canvas.onpointerup = function (evt) {
+    const points = chart.getElementsAtEventForMode(evt, 'index', { intersect: false })
+    const label = chart.data.labels[points[0]._index]
+    addAnnotation(label)
+  }
+
+  function clearAnnotations () {
+    if (chart.options.annotation) {
+      chart.options.annotation.annotations = []
+    }
+  }
+
+  function addAnnotation (label) {
+    const annotation = {
+      scaleID: 'x-axis-0',
+      type: 'line',
+      mode: 'vertical',
+      value: label,
+      borderColor: 'red'
+    }
+    chart.options.annotation = chart.options.annotation || {}
+    chart.options.annotation.annotations = chart.options.annotation.annotations || []
+    chart.options.annotation.annotations.push(annotation)
+    chart.update()
+  }
+
+  </script>
+
+
+</body>
+</html>
