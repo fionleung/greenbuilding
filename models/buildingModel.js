@@ -24,5 +24,5 @@ var buildingSchema = new mongoose.Schema({
   }]
 });
 
-var model = mongoose.model('Building', buildingSchema);
+var model = mongoose.model('buildings1', buildingSchema);
 module.exports = model;

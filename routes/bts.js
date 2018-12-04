@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var aa=require("./ab.js");
 var async = require("async");
@@ -20,132 +22,97 @@ function maxMinAvg(arr) {
 
 
 
-exports.get_temperature_chart= function(buildingid, res) {
-  aa.get_all_temperature(buildingid,function(err, data){
-    var result=[];
-    async.each(data, function(ele_in_data, next1){
-      var array=[];
-       async.each(ele_in_data, function(ele_in_data1, next2){
-           aa.get_sensor_value(ele_in_data1, function(err, data2){
-              if(err){
-                      return next(err);
-                      }
-                  array.push(data2);
-                  next2();
-                })
-                 }, function(err){
-                 if(err){ }
-                     result.push(maxMinAvg(array));
-                     next1();
-                  });
-      },function(err){
-          if(err){ }
-       res(null,result)
+exports.get_motion_chart= function(id, res) {
+  aa.get_all_motion(id,function(err, data){
+ var result=[];
+  async.each(data, function(ele_in_data, next1){
+ var array=[];
+  async.each(ele_in_data, function(ele_in_data1, next2){
+    console.log(ele_in_data1);
+       aa.get_sensor_value(ele_in_data1, function(err, data2){
+         if(err){
+                 return next(err);
+                }
+            array.push(data2);
+              next2();
+             })
+            }, function(err){
+             if(err){ }
+                result.push(maxMinAvg(array));
+                  next1();
+            });
+ },function(err){
+      if(err){ }
+     res(null,data)
   });
   });
 }
 
-exports.get_humidity_chart= function(buildingid, res) {
-  aa.get_all_humidity(buildingid,function(err, data){
-    var result=[];
-    async.each(data, function(ele_in_data, next1){
-      var array=[];
-       async.each(ele_in_data, function(ele_in_data1, next2){
-           aa.get_sensor_value(ele_in_data1, function(err, data2){
-              if(err){
-                      return next(err);
-                      }
-                  array.push(data2);
-                  next2();
-                })
-                 }, function(err){
-                 if(err){ }
-                     result.push(maxMinAvg(array));
-                     next1();
-                  });
-      },function(err){
-          if(err){ }
-       res(null,result)
+exports.get_chart= function(id, res) {
+  aa.get_all_sensors(id,function(err, node,motion,light){
+ var result=[];
+  async.each(motion, function(ele_in_motion, next1){
+ var array=[];
+  async.each(ele_in_data, function(ele_in_data1, next2){
+    console.log(ele_in_data1);
+       aa.get_sensor_value(ele_in_data1, function(err, data2){
+         if(err){
+                 return next(err);
+                }
+            array.push(data2);
+              next2();
+             })
+            }, function(err){
+             if(err){ }
+                result.push(maxMinAvg(array));
+                  next1();
+            });
+ },function(err){
+      if(err){ }
+     res(null,data)
   });
   });
 }
 
-exports.get_pressure_chart= function(buildingid, res) {
-  aa.get_all_pressure(buildingid,function(err, data){
+
+exports.get_motion_chart= function(buildingid,res) {
+  aa.get_motion(buildingid,function(err, node,sensors){
     var result=[];
-    async.each(data, function(ele_in_data, next1){
-      var array=[];
-       async.each(ele_in_data, function(ele_in_data1, next2){
-           aa.get_sensor_value(ele_in_data1, function(err, data2){
+    async.each(sensors, function(ele_in_data, next1){
+           aa.get_sensor_value(ele_in_data, function(err, data2){
               if(err){
                       return next(err);
                       }
-                  array.push(data2);
-                  next2();
+                  result.push(data2);
+                  next1();
                 })
                  }, function(err){
                  if(err){ }
-                     result.push(maxMinAvg(array));
-                     next1();
-                  });
-      },function(err){
-          if(err){ }
-          var floor=[];
-       res(null,result)
-  });
+               res(null,node,result)
+                      });
   });
 }
 
-exports.get_air_chart= function(buildingid, res) {
-  aa.get_all_air(buildingid,function(err, data){
+exports.get_light_chart= function(buildingid,res) {
+  aa.get_light(buildingid,function(err, node,sensors){
     var result=[];
-    async.each(data, function(ele_in_data, next1){
-      var array=[];
-       async.each(ele_in_data, function(ele_in_data1, next2){
-           aa.get_sensor_value(ele_in_data1, function(err, data2){
+    async.each(sensors, function(ele_in_data, next1){
+           aa.get_sensor_value(ele_in_data, function(err, data2){
               if(err){
                       return next(err);
                       }
-                  array.push(data2);
-                  next2();
+                  result.push(data2);
+                  next1();
                 })
                  }, function(err){
                  if(err){ }
-                     result.push(maxMinAvg(array));
-                     next1();
-                  });
-      },function(err){
-          if(err){ }
-          var floor=[];
-       res(null,result)
-  });
+               res(null,node,result)
+                      });
   });
 }
 
-exports.get_lighting_chart= function(buildingid, res) {
-  aa.get_all_lighting(buildingid,function(err, data){
-    var result=[];
-    async.each(data, function(ele_in_data, next1){
-      var array=[];
-       async.each(ele_in_data, function(ele_in_data1, next2){
-           aa.get_sensor_value(ele_in_data1, function(err, data2){
-              if(err){
-                      return next(err);
-                      }
-                  array.push(data2);
-                  next2();
-                })
-                 }, function(err){
-                 if(err){ }
-                     result.push(maxMinAvg(array));
-                     next1();
-                  });
-      },function(err){
-          if(err){ }
-       res(null,result)
-  });
-  });
-}
+
+
 
 exports.get_temperature_chart_f= function(buildingid,fname,res) {
   aa.get_temperature_byfloor(buildingid,fname,function(err, data,room,pic){

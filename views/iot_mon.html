@@ -117,24 +117,9 @@
 													 Dashboard
 												</a>
 											</li>
-											<li>
-												<a href="/buildings/tem">
-													 Temperature
-												</a>
-											</li>
 											<li class="nav-active">
-												<a href="/buildings/hum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/air">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/pre">
-													 Pressure
+												<a href="/buildings/mon">
+													 Motion
 												</a>
 											</li>
 											<li>
@@ -157,32 +142,17 @@
 										<ul class="nav nav-children">
 											<li>
 												<a href="/buildings/sdashboard">
-													 Dashboard
+													 Current data
 												</a>
 											</li>
 											<li>
 												<a href="/buildings/stem">
-													 Temperature
+													 Records
 												</a>
 											</li>
-											<li>
-												<a href="/buildings/shum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/sair">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="buildings/spre">
-													 Pressure
-												</a>
-											</li>
-											<li>
-												<a href="buildings/slig">
-													 Lighting
+											<li >
+												<a href="/buildings/slig">
+													 Lighting Record
 												</a>
 											</li>
 										</ul>
@@ -200,11 +170,11 @@
 					<header class="page-header">
 						<h2> <%= address %></h2>
 						<div >
-	           <ol class="breadcrumbs">
+						 <ol class="breadcrumbs">
 								<li>
 									<a href="/buildings/index">
 										<i class="fa fa-chevron-left"></i>
-                    <span>back to select buildings</span>
+										<span>back to select buildings</span>
 									</a>
 									</li>
 						</ol>
@@ -229,12 +199,12 @@
 							<label class="col-md-3 control-label">Which floor?</label>
 							<div class="col-md-4">
 								<select data-plugin-selectTwo class="form-control populate"  onchange="window.location=this.value;" name="floor">
-											 <option value="/buildings/hum/<%= j %>">all the floors</option>
+											 <option value="/buildings/mon">all the floors</option>
 											 <% for (var j = 0; j < building.floors.length; j++) { %>
 												 <% if (j==selected) { %>
-												 <option value="/buildings/hum/<%= j %>" selected>Floor<%= j+1 %></option>
+												 <option value="/buildings/mon/<%= j %>" selected>Floor<%= j+1 %></option>
 												 <% } else {%>
-												 <option value="/buildings/hum/<%= j %>" >Floor<%= j+1 %></option>
+												 <option value="/buildings/mon/<%= j %>" >Floor<%= j+1 %></option>
 												 <% } } %>
 									</select>
 							</div>
@@ -259,11 +229,12 @@
 				<table class="table table-bordered table-striped mb-none" id="datatable-default">
 					<thead>
 						<tr>
-							<th>Device ID</th>
+							<th>Device Name</th>
 							<th>Device Type</th>
-							<th>Location</th>
-							<th>Device status</th>
-							<th>Serial Model Information</th>
+							<th>Cluster#</th>
+							<th>Node#</th>
+							<th>Status</th>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -273,7 +244,8 @@
 							<td><%= sensorlist[i][1] %></td>
 							<td><%= sensorlist[i][2] %></td>
 							<td><%= sensorlist[i][3] %></td>
-							<td><%= sensorlist[i][4] %></td>
+					   	<td><%= sensorlist[i][4] %></td>
+
 						</tr>
 						  <% } %>
 					</tbody>

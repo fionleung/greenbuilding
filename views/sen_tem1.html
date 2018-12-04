@@ -45,33 +45,29 @@
 	      zoomEnabled: true,
 				axisY:{
 					     gridColor: "#D4D4D4",
-			         suffix: " °F",
+			         suffix: "",
 						   },
 				toolTip: {
 			        shared: false,
 			        contentFormatter: function (e) {
 				     var content = " ";
 				    for (var i = 0; i < e.entries.length; i++) {
-					     content += "Room"+e.entries[i].dataSeries.name + " " + "<strong>" + e.entries[i].dataPoint.y + "</strong>";
+					     content += e.entries[i].dataSeries.name + " " + "<strong>" + e.entries[i].dataPoint.y + "</strong>";
 					     content += "<br/>";
 				         }
 				        return content;
 			                      }
 		               },
 									 data: [
-									   <% for (var h=0;h<room.length;h++){ %>
 									 {type: "line",
 									 xValueType: "dateTime",
 									 showInLegend: true,
-									 name: <%-JSON.stringify(room[h]) %>,
 									 dataPoints: [
-									 <% var i=h  %>
-									   <% for (var j=0;j<data[i].length;j++){ %>
-									  { x: <%-JSON.stringify(data[i][j].timestamp) %>, y :<%-JSON.stringify(data[i][j].value) %>},
+									   <% for (var j=0;j<data.length;j++){ %>
+									  { x: <%-JSON.stringify(data[j][0]) %>, y :<%-JSON.stringify(data[j][1]) %>},
 									   <% } %>
 									 ]
 									 },
-									 <%}%>
 									 ]
 	  });
 
@@ -155,22 +151,7 @@
 											</li>
 											<li>
 												<a href="/buildings/tem">
-													 Temperature
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/hum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/air">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/pre">
-													 Pressure
+													 Motion
 												</a>
 											</li>
 											<li>
@@ -193,32 +174,17 @@
 										<ul class="nav nav-children">
 											<li >
 												<a href="/buildings/sdashboard">
-													 Dashboard
+													 Current Data
 												</a>
 											</li>
 											<li class="nav-active">
 												<a href="/buildings/stem">
-													 Temperature
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/shum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/sair">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/spre">
-													 Pressure
+													 Motion Record
 												</a>
 											</li>
 											<li >
 												<a href="/buildings/slig">
-													 Lighting
+													 Lighting Record
 												</a>
 											</li>
 										</ul>
@@ -257,22 +223,16 @@
 						<a href="#" class="fa fa-times"></a>
 					</div>
 
-					<h2 class="panel-title">Select Floor</h2>
+					<h2 class="panel-title">Select Sensors</h2>
 				</header>
 				<div class="panel-body">
-					<form class="form-horizontal form-bordered" action="/buildings/stem_chart" method=""="get">
+					<form class="form-horizontal form-bordered" action="/buildings/mrecords" method=""="get">
 						<div class="form-group">
-											<label class="col-md-3 control-label">Which floor? </label>
+											<label class="col-md-3 control-label">Which sensor? </label>
 											<div class="col-md-6">
-												<select data-plugin-selectTwo class="form-control populate" name="floor">
-															 <option></option>
-															 <% for (var j = 0; j < sum; j++) { %>
-																 <% if (j==selected) { %>
-																 <option value=<%=j %> selected>Floor<%= j+1 %></option>
-																 <% } else {%>
-																 <option value=<%= j %>>Floor<%= j+1 %></option>
-																 <% } } %>
-													</select>
+                       <% for (var j = 0; j < sensor.length; j++) { %>
+												<input type="radio" name="sensor" value=<%= sensor[j] %>> <%= sensor[j] %>&nbsp;
+                      	 <% }  %>
 											</div>
 										</div>
 
@@ -284,9 +244,9 @@
 					 <span class="input-group-addon">
 						 <i class="fa fa-calendar"></i>
 					 </span>
-					 <input type="text" class="form-control"  name="start" value=<%= start %>>
+					 <input type="text" class="form-control"  name="start">
 					 <span class="input-group-addon">to</span>
-					 <input type="text" class="form-control"  name="end" value=<%= end %>>
+					 <input type="text" class="form-control"  name="end">
 				 </div>
 			 </div>
 		 </div>
@@ -309,7 +269,7 @@
 			<div class="col-md-12">
 				<section class="panel">
 					<header class="panel-heading">
-					<h2 class="panel-title">Record for Lighting</h2>
+					<h2 class="panel-title"><%= selectedsensor %></h2>
 					</header>
 					<div class="panel-body">
 					<div class="row text-center">

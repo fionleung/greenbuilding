@@ -114,23 +114,8 @@
 												</a>
 											</li>
 											<li>
-												<a href="/buildings/tem">
-													 Temperature
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/hum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/air">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/pre">
-													 Pressure
+												<a href="/buildings/mon">
+													 Motion
 												</a>
 											</li>
 											<li>
@@ -153,32 +138,17 @@
 										<ul class="nav nav-children">
 											<li >
 												<a href="/buildings/sdashboard">
-													 Dashboard
+													 Current Data
 												</a>
 											</li>
 											<li >
 												<a href="/buildings/stem">
-													 Temperature
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/shum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/sair">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/spre">
-													 Pressure
+													 Motion Records
 												</a>
 											</li>
 											<li class="nav-active">
 												<a href="/buildings/slig">
-													 Lighting
+													 Lighting Records
 												</a>
 											</li>
 										</ul>
@@ -216,23 +186,17 @@
 						<a href="#" class="fa fa-caret-down"></a>
 						<a href="#" class="fa fa-times"></a>
 					</div>
-					<h2 class="panel-title">Select Floor</h2>
+					<h2 class="panel-title">Select sensors</h2>
 				</header>
 
 				<div class="panel-body">
-					<form class="form-horizontal form-bordered" action="/buildings/slig_chart" method=""="get">
+					<form class="form-horizontal form-bordered" action="/buildings/lrecords" method=""="get">
 						<div class="form-group">
-											<label class="col-md-3 control-label">Which floor? </label>
+											<label class="col-md-3 control-label">Which sensor? </label>
 											<div class="col-md-6">
-												<select data-plugin-selectTwo class="form-control populate" name="floor">
-															 <option></option>
-															 <% for (var j = 0; j < sum; j++) { %>
-																 <% if (j==selected) { %>
-																 <option value=<%=j %> selected>Floor<%= j+1 %></option>
-																 <% } else {%>
-																 <option value=<%= j %>>Floor<%= j+1 %></option>
-																 <% } } %>
-													</select>
+                       <% for (var j = 0; j < sensor.length; j++) { %>
+												<input type="radio" name="sensor" value=<%= sensor[j] %>> <%= sensor[j] %>&nbsp;
+                      	 <% }  %>
 											</div>
 										</div>
 

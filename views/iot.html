@@ -118,23 +118,8 @@
 												</a>
 											</li>
 											<li>
-												<a href="/buildings/tem">
-													 Temperature
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/hum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/air">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/pre">
-													 Pressure
+												<a href="/buildings/mon">
+													 Motion
 												</a>
 											</li>
 											<li>
@@ -157,36 +142,19 @@
 										<ul class="nav nav-children">
 											<li>
 												<a href="/buildings/sdashboard">
-													 Dashboard
+													 Current Data
 												</a>
 											</li>
 											<li>
 												<a href="/buildings/stem">
-													 Temperature
+													 Records
 												</a>
 											</li>
-											<li>
-												<a href="/buildings/shum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/sair">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/spre">
-													 Pressure
-												</a>
-											</li>
-											<li>
+											<li >
 												<a href="/buildings/slig">
-													 Lighting
+													 Lighting Record
 												</a>
 											</li>
-										</ul>
-									</li>
 									</ul>
 								</nav>
 							</div>
@@ -253,34 +221,13 @@
 		</div>
 	</div>
 
-<!--temperature-->
+
 		<div class="row">
-			<div class="col-md-3">
-				<section class="panel">
-					<header class="panel-heading">
-						<div class="panel-actions">
-							<a href="#" class="fa fa-caret-down"></a>
-							<a href="#" class="fa fa-times"></a>
-						</div>
-						<h2 class="panel-title">Temperature</h2>
-					</header>
-					<div class="panel-body widget-summary">
-						<div class="row text-center">
-								<div class="circular-bar">
-									<div class="circular-bar-chart" id="test" data-percent="<%= tempon %>" data-plugin-options='{ "barColor": "#067ab5", "delay": 300 }'>
-										<strong>Online</strong>
-										<label><%= tempon %>%</label>
-									</div>
 
-								</div>
-						</div>
-						<div class="summary-footer">
-							<a class="text-muted text-uppercase" href="/buildings/tem">(view all)</a>
-						</div>
-					</div>
-				</section>
-			</div>
-<!--humility-->
+
+
+
+<!--motion-->
 
 			<div class="col-md-3">
 				<section class="panel">
@@ -289,73 +236,19 @@
 							<a href="#" class="fa fa-caret-down"></a>
 							<a href="#" class="fa fa-times"></a>
 						</div>
-						<h2 class="panel-title">Humidity</h2>
+						<h2 class="panel-title">Motion Sensor</h2>
 					</header>
 					<div class="panel-body widget-summary">
 						<div class="row text-center">
 								<div class="circular-bar">
-									<div class="circular-bar-chart" data-percent="<%= humon %>" data-plugin-options='{ "barColor": "#47A447", "delay": 300 }'>
-										<strong>Online</strong>
-										<label><%= humon %>%</label>
+									<div class="circular-bar-chart" data-percent="<%= mon %>" data-plugin-options='{ "barColor": "#ED9C28", "delay": 300 }'>
+										<strong>Active</strong>
+										<label><%= mon %>%</label>
 									</div>
 								</div>
 						</div>
 						<div class="summary-footer">
-							<a class="text-muted text-uppercase" href="/buildings/hum">(view all)</a>
-						</div>
-					</div>
-				</section>
-			</div>
-
-<!--air-->
-
-			<div class="col-md-3">
-				<section class="panel">
-					<header class="panel-heading">
-						<div class="panel-actions">
-							<a href="#" class="fa fa-caret-down"></a>
-							<a href="#" class="fa fa-times"></a>
-						</div>
-						<h2 class="panel-title">Air Quality</h2>
-					</header>
-					<div class="panel-body widget-summary">
-						<div class="row text-center">
-								<div class="circular-bar">
-									<div class="circular-bar-chart" data-percent="<%= airon %>" data-plugin-options='{ "barColor": "#ED9C28", "delay": 300 }'>
-										<strong>Online</strong>
-										<label><%= airon %>%</label>
-									</div>
-								</div>
-						</div>
-						<div class="summary-footer">
-							<a class="text-muted text-uppercase" href="/buildings/air">(view all)</a>
-						</div>
-					</div>
-				</section>
-			</div>
-
-<!--pressure-->
-
-			<div class="col-md-3">
-				<section class="panel">
-					<header class="panel-heading">
-						<div class="panel-actions">
-							<a href="#" class="fa fa-caret-down"></a>
-							<a href="#" class="fa fa-times"></a>
-						</div>
-						<h2 class="panel-title">Pressure</h2>
-					</header>
-					<div class="panel-body widget-summary">
-						<div class="row text-center">
-								<div class="circular-bar">
-									<div class="circular-bar-chart" data-percent="<%= preon %>" data-plugin-options='{ "barColor": "#5BC0DE", "delay": 300 }'>
-										<strong>Online</strong>
-										<label><%= preon %>%</label>
-									</div>
-								</div>
-						</div>
-						<div class="summary-footer">
-							<a class="text-muted text-uppercase" href="/buildings/pre">(view all)</a>
+							<a class="text-muted text-uppercase" href="/buildings/mon">(view all)</a>
 						</div>
 					</div>
 				</section>
@@ -370,20 +263,20 @@
 							<a href="#" class="fa fa-caret-down"></a>
 							<a href="#" class="fa fa-times"></a>
 						</div>
-						<h2 class="panel-title">Lighting</h2>
+						<h2 class="panel-title">Lighting Sensor</h2>
 					</header>
 					<div class="panel-body widget-summary">
 						<div class="row text-center">
 								<div class="circular-bar">
 									<div class="circular-bar-chart" id="test" data-percent="<%= lighton %>" data-plugin-options='{ "barColor": "#D90000", "delay": 300 }'>
-										<strong>Online</strong>
+										<strong>Active</strong>
 										<label><%= lighton %>%</label>
 									</div>
 
 								</div>
 						</div>
 						<div class="summary-footer">
-							<a class="text-muted text-uppercase" href="/buildings/con">(view all)</a>
+							<a class="text-muted text-uppercase" href="/buildings/lig">(view all)</a>
 						</div>
 					</div>
 				</section>
@@ -402,7 +295,7 @@
 						<div class="row text-center">
 								<div class="circular-bar">
 									<div class="circular-bar-chart" id="test" data-percent="<%= clusterpp %>" data-plugin-options='{ "barColor": "#5747AD", "delay": 300 }'>
-										<strong>Online</strong>
+										<strong>Active</strong>
 										<label><%= clusterpp %>%</label>
 									</div>
 
@@ -428,14 +321,14 @@
 						<div class="row text-center">
 								<div class="circular-bar">
 									<div class="circular-bar-chart" id="test" data-percent="<%= nodeon %>" data-plugin-options='{ "barColor": "#07D4BD", "delay": 300 }'>
-										<strong>Online</strong>
+										<strong>Active</strong>
 										<label><%= nodeon %>%</label>
 									</div>
 
 								</div>
 						</div>
 						<div class="summary-footer">
-							<a class="text-muted text-uppercase" href="/buildings/lig">(view all)</a>
+							<a class="text-muted text-uppercase" href="/buildings/con">(view all)</a>
 						</div>
 					</div>
 				</section>
@@ -445,7 +338,7 @@
 
 
 		</div>
-
+</div>
 
 
 

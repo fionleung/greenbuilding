@@ -2,6 +2,7 @@
 
 
 var building = require('../models/buildingModel');
+var sensor = require('../models/sensorModel');
 
 exports.get_floor_number = function(id,res) {
     building.findOne({_id: id},function(err, data){
@@ -10,31 +11,18 @@ exports.get_floor_number = function(id,res) {
   });
 }
 
-exports.get_sensor_value_time = function(name,res){
-  var MongoClient = require('mongodb').MongoClient;
-  var url = "mongodb+srv://fion:abcd@cluster0-fomga.mongodb.net/test?retryWrites=true";
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("test");
-    var tbname=name.toString();
-    dbo.collection(tbname).find({}, function(err, result) {
-      if (err) throw err;
-      res(null,result.value)
-      db.close();
-    });
-  });
-}  //do no modify!!
+
 
 function toTimestamp(strDate){
  var datum = Date.parse(strDate);
  return datum;
 }
 
-exports.get_sensor_value_time = function(name,start,end,res){
+exports.get_sensor_value_time1 = function(name,start,end,res){
   var v1=toTimestamp(start);
   var v2=toTimestamp(end);
   var MongoClient = require('mongodb').MongoClient;
-  var url = "mongodb+srv://fion:abcd@cluster0-fomga.mongodb.net/test?retryWrites=true";
+  var url = "mongodb+srv://admin:admin@annachow-hjvei.mongodb.net/test?retryWrites=true";
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("test");
@@ -49,18 +37,21 @@ exports.get_sensor_value_time = function(name,start,end,res){
 
 exports.get_sensor_value = function(name,res){
   var MongoClient = require('mongodb').MongoClient;
-  var url = "mongodb+srv://fion:abcd@cluster0-fomga.mongodb.net/test?retryWrites=true";
+  var url = "mongodb+srv://admin:admin@annachow-hjvei.mongodb.net/test?retryWrites=true";
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("test");
-    var tbname=name.toString();
-    dbo.collection(tbname).findOne({}, function(err, result) {
+      dbo.collection("dataschemas").findOne({ sensorName: name}, function(err, result) {
       if (err) throw err;
-      res(null,result.value)
-      db.close();
+      var n=result.data.length;
+      res(null,result.data[n-1].value)
     });
   });
-}  //do no modify!!
+  };
+ //do no modify!!
+
+
+
 
 exports.get_all_lighting=function(buildingid,res) {
   var result=[];
@@ -70,8 +61,8 @@ exports.get_all_lighting=function(buildingid,res) {
      var arr=[];
     for (var k = 0; k < data.floors[j].rooms.length; k++) {
         for (var l = 0; l < data.floors[j].rooms[k].sensors.length; l++) {
-       if (data.floors[j].rooms[k].sensors[l].sensorType=="ligthing"){
-        arr.push(data.floors[j].rooms[k].sensors[l]._id.toString());
+       if (data.floors[j].rooms[k].sensors[l].sensorType=="light"){
+        arr.push(data.floors[j].rooms[k].sensors[l].sensorName.toString());
         }
      }
    }
@@ -81,81 +72,91 @@ exports.get_all_lighting=function(buildingid,res) {
   });
 }    //do no modify!!
 
-exports.get_all_temperature=function(buildingid,res) {
-  var result=[];
-  building.findOne({_id: buildingid},function(err, data){
+exports.get_motion=function(buildingid,res) {
+  var node=[];
+  var motion=[];
+  var light=[];
+  building.findOne({_id: buildingid},function(err,data){
    if(err){ return console.log(err) }
    for (var j = 0; j < data.floors.length; j++) {
-     var arr=[];
     for (var k = 0; k < data.floors[j].rooms.length; k++) {
+          node.push(data.floors[j].rooms[k].nodeName);
         for (var l = 0; l < data.floors[j].rooms[k].sensors.length; l++) {
-       if (data.floors[j].rooms[k].sensors[l].sensorType=="temperature"){
-        arr.push(data.floors[j].rooms[k].sensors[l]._id.toString());
+
+       if (data.floors[j].rooms[k].sensors[l].sensorType=="motion"){
+        motion.push(data.floors[j].rooms[k].sensors[l].sensorName);
         }
+         }
      }
    }
-     result.push(arr);
- }
-  res(null,result)
+  res(null,node,motion)
   });
 }    //do no modify!!
 
-exports.get_all_humidity=function(buildingid,res) {
-  var result=[];
-  building.findOne({_id: buildingid},function(err, data){
+exports.get_light=function(buildingid,res) {
+  var node=[];
+  var motion=[];
+  var light=[];
+  building.findOne({_id: buildingid},function(err,data){
    if(err){ return console.log(err) }
    for (var j = 0; j < data.floors.length; j++) {
-     var arr=[];
     for (var k = 0; k < data.floors[j].rooms.length; k++) {
+          node.push(data.floors[j].rooms[k].nodeName);
         for (var l = 0; l < data.floors[j].rooms[k].sensors.length; l++) {
-       if (data.floors[j].rooms[k].sensors[l].sensorType=="humility"){
-        arr.push(data.floors[j].rooms[k].sensors[l]._id.toString());
+
+       if (data.floors[j].rooms[k].sensors[l].sensorType=="light"){
+        motion.push(data.floors[j].rooms[k].sensors[l].sensorName);
         }
+         }
      }
    }
-     result.push(arr);
- }
-  res(null,result)
+  res(null,node,motion)
   });
 }    //do no modify!!
 
-exports.get_all_pressure=function(buildingid,res) {
-  var result=[];
-  building.findOne({_id: buildingid},function(err, data){
+
+exports.get_nodes=function(buildingid,res) {
+  var node=[];
+  building.findOne({_id: buildingid},function(err,data){
    if(err){ return console.log(err) }
    for (var j = 0; j < data.floors.length; j++) {
-     var arr=[];
     for (var k = 0; k < data.floors[j].rooms.length; k++) {
-        for (var l = 0; l < data.floors[j].rooms[k].sensors.length; l++) {
-       if (data.floors[j].rooms[k].sensors[l].sensorType=="pressure"){
-        arr.push(data.floors[j].rooms[k].sensors[l]._id.toString());
-        }
+          node.push(data.floors[j].rooms[k].nodeName);
+         }
      }
-   }
-     result.push(arr);
- }
-  res(null,result)
+  res(null,node)
   });
 }    //do no modify!!
 
-exports.get_all_air=function(buildingid,res) {
-  var result=[];
-  building.findOne({_id: buildingid},function(err, data){
-   if(err){ return console.log(err) }
-   for (var j = 0; j < data.floors.length; j++) {
-     var arr=[];
-    for (var k = 0; k < data.floors[j].rooms.length; k++) {
-        for (var l = 0; l < data.floors[j].rooms[k].sensors.length; l++) {
-       if (data.floors[j].rooms[k].sensors[l].sensorType=="air"){
-        arr.push(data.floors[j].rooms[k].sensors[l]._id.toString());
+exports.get_sensor_value_time=function(name,start,end,res){
+  var v1=Date.parse(start);
+  var v2=Date.parse(end);
+   var sensorgroup=[];
+   var MongoClient = require('mongodb').MongoClient;
+   var url = "mongodb+srv://admin:admin@annachow-hjvei.mongodb.net/test?retryWrites=true";
+   MongoClient.connect(url, function(err, db) {
+     if (err) throw err;
+     var dbo = db.db("test");
+       dbo.collection("dataschemas").findOne({ sensorName: name}, function(err, result) {
+       if (err) throw err;
+
+
+       for(var j=0;j<result.data.length;j++) {
+         var arr=[];
+         var t=Date.parse(result.data[j].timestamp.toISOString());
+          if ((t>v1)&&(t<v2)) {
+          var t=Date.parse(result.data[j].timestamp.toISOString());
+           arr.push(t,result.data[j].value);
+         sensorgroup.push(arr);
+         }
         }
-     }
-   }
-     result.push(arr);
- }
-  res(null,result)
-  });
-}    //do no modify!!
+           res(null,sensorgroup);
+           console.log(sensorgroup);
+     });
+   });
+   };
+
+
 
 exports.get_temperature_byfloor=function(buildingid,fname,res) {
   var result=[];

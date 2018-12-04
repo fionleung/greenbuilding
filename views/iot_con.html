@@ -118,23 +118,8 @@
 												</a>
 											</li>
 											<li>
-												<a href="/buildings/tem">
-													 Temperature
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/hum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/air">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/pre">
-													 Pressure
+												<a href="/buildings/mon">
+													 Motion
 												</a>
 											</li>
 											<li >
@@ -142,7 +127,7 @@
 													 Lighting
 												</a>
 											</li>
-											<li  class="nav-active">
+											<li class="nav-active">
 												<a href="/buildings/con">
 													 Smart Nodes & Clusters
 												</a>
@@ -157,34 +142,20 @@
 										<ul class="nav nav-children">
 											<li>
 												<a href="/buildings/sdashboard">
-													 Dashboard
+													 Current Data
 												</a>
 											</li>
 											<li>
 												<a href="/buildings/stem">
-													 Temperature
+													 Records
 												</a>
 											</li>
-											<li>
-												<a href="/buildings/shum">
-													 Humidity
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/sair">
-													 Air Quality
-												</a>
-											</li>
-											<li>
-												<a href="/buildings/spre">
-													 Pressure
-												</a>
-											</li>
-											<li>
+											<li >
 												<a href="/buildings/slig">
-													 Lighting
+													 Lighting Records
 												</a>
 											</li>
+
 										</ul>
 									</li>
 									</ul>
@@ -229,12 +200,12 @@
 							<label class="col-md-3 control-label">Which floor?</label>
 							<div class="col-md-4">
 								<select data-plugin-selectTwo class="form-control populate"  onchange="window.location=this.value;" name="floor">
-											 <option value="/buildings/lig/<%= j %>">all the floors</option>
+											 <option value="/buildings/con/<%= j %>">all the floors</option>
 											 <% for (var j = 0; j < building.floors.length; j++) { %>
 												 <% if (j==selected) { %>
-												 <option value="/buildings/lig/<%= j %>" selected>Floor<%= j+1 %></option>
+												 <option value="/buildings/con/<%= j %>" selected>Floor<%= j+1 %></option>
 												 <% } else {%>
-												 <option value="/buildings/lig/<%= j %>" >Floor<%= j+1 %></option>
+												 <option value="/buildings/con/<%= j %>" >Floor<%= j+1 %></option>
 												 <% } } %>
 									</select>
 							</div>
@@ -259,8 +230,9 @@
 				<table class="table table-bordered table-striped mb-none" id="datatable-default">
 					<thead>
 						<tr>
+              <th>Device Name</th>
 							<th>Device Type</th>
-							<th>Location</th>
+							<th>Cluster#</th>
 							<th>Device status</th>
 						</tr>
 					</thead>
@@ -270,6 +242,7 @@
 							<td><%= sensorlist[i][0] %></td>
 							<td><%= sensorlist[i][1] %></td>
 							<td><%= sensorlist[i][2] %></td>
+							<td><%= sensorlist[i][3] %></td>
 						</tr>
 						  <% } %>
 					</tbody>
