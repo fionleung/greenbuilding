@@ -38,7 +38,23 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
 		<script type="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.min.js"></script>
-
+		<script>
+		function vailidat(){
+			var start_element=document.getElementById("start");
+			var start=start_element.value;
+			var end_element=document.getElementById("end");
+			var end=end_element.value;
+			if(start=="") {alert("selest start first");}
+			else {
+				var startdate=new Date(start);
+				var enddate=new Date(end);
+				var range=(enddate-startdate)/1000/60/60/24;
+				if (range>31) {alert("seach data within 31 days");
+				 document.getElementById("end").value = "";
+			}
+			}
+		}
+		</script>
 			<!-- start: header -->
 			<header class="header">
 				<div class="logo-container">
@@ -208,9 +224,9 @@
 					 <span class="input-group-addon">
 						 <i class="fa fa-calendar"></i>
 					 </span>
-					 <input type="text" class="form-control"  name="start">
+					 <input type="text" class="form-control" id="start" name="start">
 					 <span class="input-group-addon">to</span>
-					 <input type="text" class="form-control"  name="end">
+					 <input type="text" class="form-control" id="end" name="end" onblur="vailidat">
 				 </div>
 			 </div>
 		 </div>

@@ -200,20 +200,19 @@
 					</header>
 					<div class="panel-body widget-summary">
 						<div class="row text-center">
+							<h3>Lighting</h3>
 								<div class="circular-bar">
 									<div class="circular-bar-chart" data-percent="<%= light[i] %>" data-plugin-options='{ "barColor": "#ED9C28", "delay": 300 }'>
-										<strong>Lighting</strong>
-										<label><%= light[i] %> watt</label>
+										<strong><%= light[i] %> </strong>
+										<label>watt</label>
 									</div>
 								</div>
 						</div>
 						<div class="row text-center">
-								<div class="circular-bar">
-									<div class="circular-bar-chart" data-percent="<%= motion[i] %>" data-plugin-options='{ "barColor": "#2A88C2", "delay": 300 }'>
-										<strong>Motion</strong>
-										<label><%= motion[i] %></label>
-									</div>
-								</div>
+							<hr>
+           	<h3>Motion</h3>
+										<span class="highlight"><%= motion[i] %></span>
+
 						</div>
 					</div>
 				</section>
